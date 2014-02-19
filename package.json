@@ -1,7 +1,7 @@
 {
   "name": "asset-pipeline",
   "version": "0.0.0",
-  "description": "",
+  "description": "Asset pipeline module for NodeJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
