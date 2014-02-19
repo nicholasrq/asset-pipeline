@@ -1,0 +1,90 @@
+# Test files
+.rvmrc
+
+# OS generated files
+.DS_Store
+.rvm*
+.rbenv*
+.idea*
+.sass-cache
+Thumbs.db
+Icon?
+ehthumbs.db
+Gemfile.lock
+
+# Ruby specifics #
+##################
+.bundle
+
+# Temporary files #
+tmp/*
+public/uploads/tmp/*
+*.tmp
+version.txt
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+#*.xml
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+log/*
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+config/database.yml
+config/payment_config.yml
+private
+private/*
+
+# Caches #
+##########
+#*cache*
+.cache/
+.sass-cache/
+*.sublime*
+source/
+build/
+public/assets/
+node_modules/
+publiv/source_maps/
+
+.ruby-version
+.powenv
+
+config/development.pill
+public/hotel_export/
+public/hotel_export_context/
+solr/data/
+solr/pids/
+public/hotel_export_context/hotels.csv
+
+public/hotel_export_context/hotels.csv
+
+sitemap*.xml
+
+config/solr/default
+config/solr/development
+config/solr/test
+config/solr/production
+config/my_unicorn.rb
