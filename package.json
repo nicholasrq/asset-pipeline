@@ -18,6 +18,8 @@
   "homepage": "https://github.com/nicholasrq/asset-pipeline",
   "dependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-coffee": "~0.10.1"
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-jslint": "~1.1.5",
+    "grunt-coffeelint": "0.0.8"
   }
 }

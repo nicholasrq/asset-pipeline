@@ -13,8 +13,19 @@ module.exports = (grunt) ->
         src: ['**/*.coffee'],
         dest: 'lib',
         ext: '.js'
+
+    coffeelint:
+      build:
+        src: ['src/**/*.coffee']
+        options: {
+          'no_trailing_whitespace': {
+            'level': 'ignore'
+          }
+        }
   }
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-jslint'
+  grunt.loadNpmTasks 'grunt-coffeelint'
 
-  grunt.registerTask 'default', ['coffee:compile']
+  grunt.registerTask 'default', ['coffeelint:build', 'coffee:compile']
