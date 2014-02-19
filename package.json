@@ -2,7 +2,7 @@
   "name": "asset-pipeline",
   "version": "0.0.0",
   "description": "Asset pipeline module for NodeJS",
-  "main": "index.js",
+  "main": "./lib/asset-pipeline.js",
   "scripts": {
     "test": "echo \"Everything seems to be OK\" && exit 0"
   },
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/nicholasrq/asset-pipeline/issues"
   },
-  "homepage": "https://github.com/nicholasrq/asset-pipeline"
+  "homepage": "https://github.com/nicholasrq/asset-pipeline",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.10.1"
+  }
 }
