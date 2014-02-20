@@ -1,5 +1,10 @@
+OS      = require 'os'
+RSVP    = require 'rsvp'
+Path    = require 'path'
+Utils   = require './utils'
+Plugins = require './plugins'
+
 class module.exports.AssetPipeline
   
-  'use strict'
   constructor: ->
     console.log 'hello' 
