@@ -6,15 +6,20 @@ Plugins   = require './plugins'
 snockets  = new require 'snockets'
 env       = process.env.NODE_ENV
 root      = __dirname
+app_root  = Path.join root#, '..', '..', '..'
 
 class AssetPipeline
   
   plugins   : {}
 
   defaults  : {
-    static_assets       : Path.join root, '..', '..', '..', 'public', 'assets'
+    static_assets       : Path.join app_root, 'public', 'assets'
     assets_path         : '/assets'
-    assets_dir          : ['assets']
+    assets_dir          : [
+      Path.join app_root, 'assets'
+      Path.join app_root, 'vendor'
+      Path.join app_root, 'lib'
+    ]
     auto_precompile_ext : ['.prod']
     precompile_files    : []
     precompile          : env == 'production'
@@ -31,18 +36,28 @@ class AssetPipeline
       @exapp.use(@options.assets_path, @options.static_assets)
 
   constructor: (options = {})->
+    @compiler = require './modules/compiler'
     @configure(options)
 
   configure: (options = {})->
-    @options = Utils.extend(true, {}, @defaults, @options, options)
-    @assets  = 
+    @options = Utils.extend({}, @defaults, @options, options)
+    @assets  = require './modules/watch_assets'
+    @assets.set_dir(@options.assets_dir)
+
+    unless @options.precompile
+      @assets.live()
+    else
+      @assets.index()
 
   will_precompile: (files)->
     Utils.add(@options.precompile_files, files)
 
   do_compile: (asset_path)->
     return new RSVP.Promise ((resolve, reject)->
-      resolve('yay!')
+      @assets.find(asset_path)
+        .then(@compiler.process)
+        .then((err, data)-> unless error? then resolve(data) else reject())
+        .catch((err)-> reject(err))
     ).bind(this)
 
   listen: ->

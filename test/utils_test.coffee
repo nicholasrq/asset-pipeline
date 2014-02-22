@@ -1,4 +1,5 @@
 assert = require 'assert'
+Path   = require 'path'
 Utils  = require '../src/utils'
 
 describe 'Utils', ->
@@ -37,3 +38,19 @@ describe 'Utils', ->
       dest    = [1,2,3]
       result  = Utils.add dest, [4,5], [6,7]
       assert.deepEqual(result, [1,2,3,4,5,6,7])
+
+  describe '#files()', ->
+    it 'shoud have length', ->
+      list = Utils.files __dirname + '/../src'
+      assert.equal(9, list.length)
+
+    it 'shoud have length', ->
+      root  = Path.join(__dirname, '..', 'src')
+      list  = Utils.files root
+      assert.equal(9, list.length)
+
+    it 'shoud have length', ->
+      root  = Path.join(__dirname, '..', 'src')
+      match = Path.join(root, 'asset-pipeline.coffee')
+      list  = Utils.files(root)
+      assert.equal(match, list[0])
