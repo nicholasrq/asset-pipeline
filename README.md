@@ -40,9 +40,11 @@ astppl.configure({
 ```
 
 ## Options
-`static_assets` 		— path where your static assets live (default `/public/assets`)
-`assets_path`			— path where your assets will be available for the web (default `/assets`)
-`assets_dir`			– paths where your assets live (default `['/app/assets', '/lib/assets', '/vendor/assets'])
-`auto_precompile_ext`	– files with this extension will be precompiled automatically, e.g. 'app.prod.js' (default `['.prod']`)
-`precompile_files`		– list of files to be precompiled side by side with auto precompiled files (default `[]`)
-`precompile`			– switch files precompilation (default `true` for production and `false` for test and development)
+| option                | descriprion                                                                                            |
+| :-------------------: | :----------------------------------------------------------------------------------------------------- |
+| `static_assets`       | path where your static assets live (default `/public/assets`)                                          |
+| `assets_path`         | path where your assets will be available for the web (default `/assets`)                               |
+| `assets_dir`          | paths where your assets live (default `['/app/assets', '/lib/assets', '/vendor/assets'])               |
+| `auto_precompile_ext` | files with this extension will be precompiled automatically, e.g. 'app.prod.js' (default `['.prod']`)  |
+| `precompile_files`    | list of files to be precompiled side by side with auto precompiled files (default `[]`)                |
+| `precompile`          | switch files precompilation (default `true` for production and `false` for test and development)       |
