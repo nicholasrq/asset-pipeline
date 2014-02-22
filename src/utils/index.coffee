@@ -1,3 +1,4 @@
-module.exports.Utils = {
-  merge: require('./merge')
+module.exports = {
+  add    : require('./add')
+  extend : require('./merge')
 }

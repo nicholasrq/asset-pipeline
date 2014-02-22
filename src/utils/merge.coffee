@@ -1,24 +1,30 @@
-merge = ->
-  _slice = [].slice
-  if (deep = arguments) instanceof Boolean
-    dest   = _slice(arguments, 1,1)
-    src    = _slice(arguments, 2)
+extend = ->
+  _slice = Array::slice
+  if Object::toString.call(arguments[0]) == '[object Boolean]'
+    deep   = arguments[0]
+    dest   = arguments[1]
+    srcs   = _slice.call(arguments, 2)
   else
-    dest   = _slice(arguments, 0,1)
-    src    = _slice(arguments, 1)
+    deep   = false
+    dest   = _slice.call(arguments, 0, 1)[0]
+    srcs   = _slice.call(arguments, 1)
 
-  Object.keys(src).forEach (key)->
-    unless deep
-      dest[key] = src[key]
-    else
-      dest_type = Object::toString(dest[key])
-      src_type  = Object::toString(src[key])
-      if obj_type == '[object Object]'
-        dest[key] = merge(deep, dest[key], src[key]) if src_type == '[object Object]'
-      else if obj_type == '[object Array]'
-        dest[key] = dest[key].concat(src[key]) if src_type == '[object Array]'
-      else
+  srcs.forEach (src)->
+    return true unless src?
+    Object.keys(src).forEach (key)->
+      unless deep
         dest[key] = src[key]
+      else
+        dest_type = Object::toString.call(dest[key])
+        src_type  = Object::toString.call(src[key])
+        if dest_type == '[object Object]'
+          if src_type == '[object Object]'
+            dest[key] = extend(deep, dest[key], src[key])
+        else if dest_type == '[object Array]'
+          if src_type == '[object Array]'
+            dest[key] = dest[key].concat(src[key])
+        else
+          dest[key] = src[key]
   return dest
 
-module.exports = merge
+module.exports = extend
