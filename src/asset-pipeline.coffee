@@ -10,29 +10,27 @@ app_root  = Path.join root#, '..', '..', '..'
 
 class AssetPipeline
   
+  VERSION   : require('../package.json').version
+
   plugins   : {}
 
   defaults  : {
     static_assets       : Path.join app_root, 'public', 'assets'
     assets_path         : '/assets'
-    assets_dir          : [
-      Path.join app_root, 'assets'
-      Path.join app_root, 'vendor'
-      Path.join app_root, 'lib'
-    ]
+    compiled            : '/public'
+    assets_dir          : []
     auto_precompile_ext : ['.prod']
     precompile_files    : []
     precompile          : env == 'production'
   }
 
   set_app: (@exapp)->
+    title = "Asset Pipleine v#{@VERSION} now"
     unless env == 'production'
-      console.log "Asset Pipleine now listens for
-      requests on #{@options.assets_path}"
+      console.log "#{title} listens for requests on #{@options.assets_path}"
       @exapp.use(@options.assets_path, @listen())
     else
-      console.log "Asset Pipleine now serves static
-      assets on #{@options.static_assets}"
+      console.log "#{title} serves static assets on #{@options.static_assets}"
       @exapp.use(@options.assets_path, @options.static_assets)
 
   constructor: (options = {})->
@@ -65,10 +63,11 @@ class AssetPipeline
     @observer = Server.create(env, this)
     return @observer
 
-  middleware: ->
-    astppl = this
-    return (req, res, next)->
-      res.locals = Utils.extend(res.locals, astppl.helpers)
-      next()
+  middleware: -> (req, res, next)->
+    helpers     = require './modules/helpers'
+    Object.keys(helpers).forEach((h)-> res.locals[h] = helpers[h])
+    console.log res.locals
+    next()
+
 
 module.exports = new AssetPipeline

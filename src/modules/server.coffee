@@ -11,6 +11,8 @@ class Server
   handle: (req, res)->
     pathname = url.parse(req.url).pathname
     
+    console.log "Get #{pathname}"
+
     try
       pathname = decodeURIComponent(pathname.replace(/^\//, ''))
     catch e

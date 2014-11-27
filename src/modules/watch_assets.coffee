@@ -7,7 +7,7 @@ class WatchAssets
     dependencies : {}
   }
 
-  constructor: ->
+  constructor: (extensions)->
     @dirs = []
 
   live: ->
@@ -16,7 +16,7 @@ class WatchAssets
     @index()
 
   index: ->
-    new RSVP.Promise(((resolve, reject)=>
+    build_index = new RSVP.Promise(((resolve, reject)=>
       files = @dirs.reduce ((list, dir)->
         files_list = Utils.files(dir).reduce(((res, file_path)->
           asset_path = file_path.replace(dir + '/', '')
@@ -26,9 +26,17 @@ class WatchAssets
         return list.concat(files_list)
       ), []
       resolve(files)
-    )).then(@save_index).catch(@handle_errors)
+    ))
+
+    build_index
+      .then(@save_index.bind(this))
+      .catch(@handle_errors)
+
+  find: (path)->
+    console.log "Try to find #{path}"
 
   save_index: (files)->
+    console.log files
 
   add_listeners: ->
 
